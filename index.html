@@ -527,7 +527,8 @@ class Component extends DCLogic {
     // tuile : reel vertical -> vidéo horizontale -> plein écran, pilotée par le scroll
     const vw2 = window.innerWidth || 1200;
     const vh2 = window.innerHeight || 800;
-    const Hv = Math.max(380, Math.min(760, vh2 * 0.72));
+    const narrow = vw2 < 700;
+    const Hv = narrow ? Math.max(300, vh2 * 0.6) : Math.max(380, Math.min(760, vh2 * 0.72));
     const Wv = Hv * 9 / 16;
     const Wh = Math.min(vw2 * 0.9, vh2 * 0.7 * 16 / 9);
     const Hh = Wh * 9 / 16;
@@ -549,8 +550,8 @@ class Component extends DCLogic {
       num: pad2(ri + 1),
       total: pad2(reels.length),
       src: reels[ri],
-      numWrap: 'position:absolute;text-align:right;bottom:calc(50% - ' + (th / 2).toFixed(1) + 'px);right:calc(50% + ' + (tw / 2 + gap).toFixed(1) + 'px);opacity:' + fade.toFixed(3) + ';pointer-events:none',
-      navWrap: 'position:absolute;width:clamp(150px,14vw,220px);bottom:calc(50% - ' + (th / 2).toFixed(1) + 'px);left:calc(50% + ' + (tw / 2 + gap).toFixed(1) + 'px);opacity:' + fade.toFixed(3) + ';pointer-events:' + (fade > 0.5 ? 'auto' : 'none'),
+      numWrap: (narrow ? 'position:absolute;text-align:left;top:calc(50% + ' + (th / 2 + 14).toFixed(1) + 'px);left:16px;opacity:' : 'position:absolute;text-align:right;bottom:calc(50% - ' + (th / 2).toFixed(1) + 'px);right:calc(50% + ' + (tw / 2 + gap).toFixed(1) + 'px);opacity:') + fade.toFixed(3) + ';pointer-events:none',
+      navWrap: (narrow ? 'position:absolute;width:150px;top:calc(50% + ' + (th / 2 + 14).toFixed(1) + 'px);right:16px;opacity:' : 'position:absolute;width:clamp(150px,14vw,220px);bottom:calc(50% - ' + (th / 2).toFixed(1) + 'px);left:calc(50% + ' + (tw / 2 + gap).toFixed(1) + 'px);opacity:') + fade.toFixed(3) + ';pointer-events:' + (fade > 0.5 ? 'auto' : 'none'),
       numStyle: mv(0, (1 - e) * 70, (1 - e) * 12, e),
       subStyle: 'margin-top:12px;' + mv(0, (1 - q3) * 14, (1 - q3) * 5, q3),
       nav1: mv((1 - q1) * 28, 0, (1 - q1) * 6, q1) + ';transition:background .2s,color .2s',
