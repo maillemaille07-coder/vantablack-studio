@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vantablack Studio : montage vidéo, motion design et étalonnage pour YouTube, podcasts, réseaux sociaux et publicités.">
+<meta name="theme-color" content="#FFF7E5">
+<title>Contact — Vantablack Studio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:'Helvetica Now';font-weight:700;src:url('assets/0cc3669a1f2957b2670c2ff8c84abfec.ttf') format('truetype')}
+@font-face{font-family:'Helvetica Now';font-weight:500;src:url('assets/dc83c20b479ca61cb7b7e7d4d64b2c2d.ttf') format('truetype')}
+@font-face{font-family:'Helvetica Now';font-weight:300;src:url('assets/2a80f64044327eff37909faecee8b366.ttf') format('truetype')}
+body{margin:0;background:#FFF7E5;color:#111;font-family:'Helvetica Now','Helvetica Neue',Helvetica,sans-serif;font-weight:500}
+h1,h2,h3,p,blockquote{margin:0}
+h1,h2{font-weight:700;letter-spacing:-.055em;line-height:.86}
+a{color:#111;text-decoration:none}a:hover{color:#D52122}
+button{font-family:inherit}
+.vb-top a{color:inherit}
+.vb-top a:hover{opacity:.6}
+.vb-top a.vb-hl{color:#FFF7E5}
+.vb-top a.vb-hl:hover{opacity:1;color:#FFF7E5}
+.vb-s{font-size:13px;font-weight:500;letter-spacing:-.01em;line-height:1.25}
+.vb-hl{--bw:max(2px,.03em);--ds:clamp(7px,.13em,24px);position:relative;display:inline-block;background:#D52122;color:#FFF7E5;padding:.03em .13em .07em;line-height:.98}
+.vb-hl.bl::before{content:'';position:absolute;left:0;top:-.18em;bottom:0;width:var(--bw);background:#D52122}
+.vb-hl.br::after{content:'';position:absolute;right:0;top:0;bottom:-.18em;width:var(--bw);background:#D52122}
+.vb-hl i{position:absolute;width:var(--ds);height:var(--ds);border-radius:50%;background:#D52122}
+.vb-hl i.d1{left:calc(var(--bw)/2);top:-.18em;transform:translate(-50%,-50%)}
+.vb-hl i.d2{right:calc(var(--bw)/2);bottom:-.18em;transform:translate(50%,50%)}
+.vb-hl:hover{color:#FFF7E5}
+.vb-hl.v{background:#FFF7E5;color:#D52122}
+.vb-hl.v:hover{color:#D52122}
+.vb-hl.v::before,.vb-hl.v::after,.vb-hl.v i{background:#FFF7E5}
+.vb-inv{background:#111;color:#FFF7E5;padding:0 .1em}
+@keyframes vb-in{from{clip-path:inset(100% 0 0 0);transform:translateY(24px)}to{clip-path:inset(0 0 0 0);transform:none}}
+@keyframes vb-fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vb-reveal{animation:vb-in 1.1s cubic-bezier(.2,.8,.2,1) var(--d,0s) both}
+.vb-cap{animation:vb-fade .8s ease var(--d,0s) both}
+@supports (animation-timeline:view()){.vb-reveal:not(.vb-intro),.vb-cap:not(.vb-intro){animation-delay:0s;animation-timeline:view();animation-range:entry 0% entry 55%}.vb-cap:not(.vb-intro){animation-range:entry 20% entry 80%}}
+@keyframes vb-track{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.vb-track{animation:vb-track 48s linear infinite}
+.vb-track:hover{animation-play-state:paused}
+@keyframes vb-scan{0%{transform:translateY(-100%)}100%{transform:translateY(260%)}}
+@keyframes vb-pulse{0%,100%{opacity:1}50%{opacity:.2}}
+.vb-scan{position:absolute;left:0;right:0;top:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.09),transparent);animation:vb-scan 3.6s linear infinite;pointer-events:none}
+.vb-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#D52122;animation:vb-pulse 1.6s ease-in-out infinite}
+.vb-tile .vb-play{opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s}.vb-tile:hover .vb-play,.vb-tile:focus-visible .vb-play{opacity:1;transform:scale(1)}
+.vb-clip{background:transparent}.vb-clip:hover{background:rgba(255,247,229,.22)}
+@media (prefers-reduced-motion:reduce){.vb-scan,.vb-dot,.vb-reveal,.vb-cap,.vb-track{animation:none}}
+
+.vb-frame{position:relative;box-sizing:border-box;padding:clamp(28px,4vw,64px) clamp(20px,4vw,64px);}
+.vb-hd{position:absolute;width:14px;height:14px;border-radius:50%;background:#D52122;margin:-7px}
+.vb-field{display:block;margin-bottom:clamp(28px,3.4vw,48px)}
+.vb-field>span{display:block;margin-bottom:8px}
+.vb-input{width:100%;box-sizing:border-box;background:transparent;border:0;border-bottom:1px solid #111;border-radius:0;padding:10px 0 14px;font:inherit;font-weight:500;font-size:clamp(16px,1.5vw,20px);letter-spacing:-.02em;color:#111;outline:none;resize:none}
+.vb-input::placeholder{color:rgba(17,17,17,.3)}
+.vb-input:focus{border-bottom:2px solid #D52122;padding-bottom:13px}
+.vb-chip{padding:12px 18px;border:1px solid #111;border-radius:0;background:transparent;color:#111;font:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s}
+.vb-chip:hover{background:rgba(213,33,34,.12)}
+.vb-link{display:flex;justify-content:space-between;align-items:baseline;padding:16px 12px;border-top:1px solid #111;transition:background .2s,color .2s,padding-left .3s}
+.vb-link:hover{background:#D52122;color:#FFF7E5;padding-left:28px}
+@media (max-width:560px){.vb-top{flex-wrap:nowrap!important;gap:8px!important;padding:14px 14px 0!important}.vb-top>a>span{width:92px!important;height:30px!important}.vb-top nav{flex-wrap:nowrap!important;gap:0 12px!important;font-size:12px!important}.vb-top nav a{padding:8px 0!important}.vb-top nav a.vb-hl{padding:.55em .9em!important;margin:0 4px!important}}
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh;background:#FFF7E5;color:#111;font-family:'Helvetica Now','Helvetica Neue',Helvetica,sans-serif;font-weight:500;overflow:hidden">
+
+<!-- grain papier -->
+<svg aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:multiply;opacity:.5;z-index:50"><filter id="vb-grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"></feTurbulence><feColorMatrix values="0 0 0 0 .1  0 0 0 0 .1  0 0 0 0 .1  0 0 0 .22 0"></feColorMatrix></filter><rect width="100%" height="100%" filter="url(#vb-grain)"></rect></svg>
+
+<!-- NAV -->
+<header class="vb-top" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;padding:28px clamp(16px,2.4vw,40px) 0;position:fixed;top:0;left:0;right:0;box-sizing:border-box;z-index:60;color:{{ hdr.color }}">
+<a href="index.html" aria-label="Vantablack Studio — accueil"><span role="img" aria-label="Vantablack" style="display:block;width:116px;height:38px;background:{{ hdr.color }};-webkit-mask:url(assets/dd1ae9fee96c4cdcf1dab0758622d999.png) center/contain no-repeat;mask:url(assets/dd1ae9fee96c4cdcf1dab0758622d999.png) center/contain no-repeat"></span></a>
+<nav class="vb-s" style="display:flex;flex-wrap:wrap;gap:4px 32px;align-items:center">
+<a href="projets.html" style="padding:12px 0">Projets clients</a>
+<a href="tarifs.html" style="padding:12px 0">Tarifs</a>
+<a class="vb-hl bl br" href="contact.html" style="margin:0 8px;padding:.6em 1.2em;align-self:center;font-weight:700"><i class="d1"></i>Contact<i class="d2"></i></a>
+</nav>
+</header>
+<div style="height:66px" aria-hidden="true"></div>
+
+<!-- TITRE -->
+<section style="padding:0 clamp(16px,2.4vw,40px)">
+<h1 style="margin:clamp(8px,2vw,28px) 0 0 -.04em;font-size:min(23vw,420px);white-space:nowrap;line-height:.82;letter-spacing:-.07em;font-weight:700">Contact</h1>
+</section>
+
+<!-- FORMULAIRE + COORDONNÉES -->
+<section style="box-sizing:border-box;padding:clamp(80px,14vh,180px) clamp(16px,2.4vw,40px) 0;display:flex;align-items:center;justify-content:center">
+
+<div class="vb-frame" style="width:100%;max-width:760px">
+<form onSubmit="{{ noSubmit }}" style="width:100%">
+<label class="vb-field"><span class="vb-s">Nom</span><input class="vb-input" type="text" name="nom" autocomplete="name" placeholder="Votre nom" value="{{ f.name }}" onInput="{{ f.onName }}"></label>
+<label class="vb-field"><span class="vb-s">Email</span><input class="vb-input" type="email" name="email" autocomplete="email" placeholder="vous@exemple.com" value="{{ f.email }}" onInput="{{ f.onEmail }}"></label>
+<div class="vb-field">
+<span class="vb-s" style="display:block;margin-bottom:12px">Type de projet</span>
+<div style="display:flex;flex-wrap:wrap;gap:10px">
+<sc-for list="{{ chips }}" as="c" hint-placeholder-count="5"><button type="button" class="vb-chip" aria-pressed="{{ c.on }}" onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button></sc-for>
+</div>
+</div>
+<label class="vb-field"><span class="vb-s">Message</span><textarea class="vb-input" name="message" rows="4" placeholder="Parlez-moi de votre projet" value="{{ f.msg }}" onInput="{{ f.onMsg }}"></textarea></label>
+<div style="display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center">
+<a class="vb-hl bl br" href="{{ mailto }}" style="margin:0 8px;padding:.7em 1.6em;font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:-.03em"><i class="d1"></i>Envoyer<i class="d2"></i></a>
+<span class="vb-s" style="max-width:300px;color:rgba(17,17,17,.6)">Ouvre votre application mail avec le message déjà rédigé.</span>
+</div>
+</form>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="padding:clamp(120px,20vh,260px) clamp(16px,2.4vw,40px) 28px">
+<div style="display:flex;flex-wrap:wrap;gap:40px 32px;justify-content:space-between;align-items:flex-end;padding-top:28px;border-top:1px solid #111">
+<div style="display:flex;flex-direction:column;gap:28px">
+<span role="img" aria-label="Vantablack" style="display:block;width:150px;height:50px;margin-left:-14px;background:#111;-webkit-mask:url(assets/dd1ae9fee96c4cdcf1dab0758622d999.png) left center/contain no-repeat;mask:url(assets/dd1ae9fee96c4cdcf1dab0758622d999.png) left center/contain no-repeat"></span>
+<div class="vb-s" style="display:flex;flex-direction:column;gap:2px">
+<a href="https://www.instagram.com/_mathis_maille_/" style="padding:6px 0">Instagram ↗</a>
+<a href="https://www.tiktok.com/@.mathis.maille" style="padding:6px 0">TikTok ↗</a>
+<a href="mailto:mathis.maille@vantablack-studio.fr" style="padding:6px 0">mathis.maille@vantablack-studio.fr</a>
+</div>
+</div>
+<span class="vb-s">© Vantablack</span>
+</div>
+</footer>
+
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { hl: false, name: '', email: '', msg: '', types: [] };
+  }
+  componentDidMount() {
+    this.initHeader();
+  }
+  componentWillUnmount() {
+    this.dropHeader();
+  }
+  initHeader() {
+    this.onScroll = () => {
+      try {
+        let light = false;
+        document.querySelectorAll('[data-hdr]').forEach((e) => {
+          const r = e.getBoundingClientRect();
+          if (r.top <= 36 && r.bottom >= 36) light = true;
+        });
+        if (light !== this.state.hl) this.setState({ hl: light });
+      } catch (err) {}
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll();
+  }
+  dropHeader() {
+    if (this.onScroll) window.removeEventListener('scroll', this.onScroll);
+  }
+  renderVals() {
+    const s = this.state;
+    const labels = ['YouTube', 'Podcasts', 'Réseaux sociaux', 'ADS', 'Autre'];
+    const chips = labels.map((label) => {
+      const on = s.types.indexOf(label) !== -1;
+      return {
+        label,
+        on,
+        pick: () => this.setState({ types: on ? s.types.filter((x) => x !== label) : s.types.concat(label) }),
+        style: on ? 'background:#D52122;color:#FFF7E5;border-color:#D52122' : '',
+      };
+    });
+    const lines = [
+      'Nom : ' + s.name,
+      'Email : ' + s.email,
+      'Type de projet : ' + (s.types.length ? s.types.join(', ') : '—'),
+      '',
+      s.msg,
+    ].join('\n');
+    const subject = 'Projet' + (s.name ? ' — ' + s.name : '');
+    return {
+      hdr: { color: this.state.hl ? '#FFF7E5' : '#111' },
+      chips,
+      noSubmit: (e) => e.preventDefault(),
+      mailto: 'mailto:mathis.maille@vantablack-studio.fr?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines),
+      f: {
+        name: s.name, email: s.email, msg: s.msg,
+        onName: (e) => this.setState({ name: e.target.value }),
+        onEmail: (e) => this.setState({ email: e.target.value }),
+        onMsg: (e) => this.setState({ msg: e.target.value }),
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
