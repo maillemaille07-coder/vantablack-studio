@@ -102,8 +102,8 @@ button{font-family:inherit}
 </div>
 <label class="vb-field"><span class="vb-s">Message</span><textarea class="vb-input" name="message" rows="4" placeholder="Parlez-moi de votre projet" value="{{ f.msg }}" onInput="{{ f.onMsg }}"></textarea></label>
 <div style="display:flex;flex-wrap:wrap;gap:20px 28px;align-items:center">
-<a class="vb-hl bl br" href="{{ mailto }}" style="margin:0 8px;padding:.7em 1.6em;font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:-.03em"><i class="d1"></i>Envoyer<i class="d2"></i></a>
-<span class="vb-s" style="max-width:300px;color:rgba(17,17,17,.6)">Ouvre votre application mail avec le message déjà rédigé.</span>
+<a class="vb-hl bl br" href="#envoyer" role="button" onClick="{{ send }}" style="margin:0 8px;padding:.7em 1.6em;font-weight:700;font-size:clamp(16px,1.6vw,22px);letter-spacing:-.03em;opacity:{{ btnOpacity }}"><i class="d1"></i>{{ btnLabel }}<i class="d2"></i></a>
+<span class="vb-s" role="status" aria-live="polite" style="max-width:320px;color:{{ statusColor }}">{{ statusMsg }}</span>
 </div>
 </form>
 </div>
@@ -132,7 +132,7 @@ button{font-family:inherit}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { hl: false, name: '', email: '', msg: '', types: [] };
+    this.state = { hl: false, name: '', email: '', msg: '', types: [], status: 'idle' };
   }
   componentDidMount() {
     this.initHeader();
@@ -177,8 +177,46 @@ class Component extends DCLogic {
       s.msg,
     ].join('\n');
     const subject = 'Projet' + (s.name ? ' — ' + s.name : '');
+    const send = async (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      if (s.status === 'sending') return;
+      if (!/^\S+@\S+\.\S+$/.test(s.email.trim()) || !s.msg.trim()) {
+        this.setState({ status: 'invalid' });
+        return;
+      }
+      this.setState({ status: 'sending' });
+      try {
+        const r = await fetch('https://formspree.io/f/xoejypvw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            _subject: subject,
+            nom: s.name,
+            email: s.email,
+            type_de_projet: s.types.length ? s.types.join(', ') : '—',
+            message: s.msg,
+          }),
+        });
+        if (!r.ok) throw new Error('http ' + r.status);
+        this.setState({ status: 'ok', name: '', email: '', msg: '', types: [] });
+      } catch (err) {
+        this.setState({ status: 'error' });
+      }
+    };
+    const msgs = {
+      idle: '',
+      sending: 'Envoi en cours…',
+      ok: 'Merci, votre message est bien envoyé. Je vous réponds très vite.',
+      invalid: 'Ajoutez un email valide et un message.',
+      error: "L'envoi a échoué. Écrivez-moi directement à mathis.maille@vantablack-studio.fr",
+    };
     return {
       hdr: { color: this.state.hl ? '#FFF7E5' : '#111' },
+      send,
+      btnLabel: s.status === 'sending' ? 'Envoi…' : 'Envoyer',
+      btnOpacity: s.status === 'sending' ? '.6' : '1',
+      statusMsg: msgs[s.status] || '',
+      statusColor: s.status === 'ok' ? '#111' : (s.status === 'idle' || s.status === 'sending' ? 'rgba(17,17,17,.6)' : '#D52122'),
       chips,
       noSubmit: (e) => e.preventDefault(),
       mailto: 'mailto:mathis.maille@vantablack-studio.fr?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines),
