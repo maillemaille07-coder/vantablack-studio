@@ -128,7 +128,7 @@ button{font-family:inherit}
 <div style="{{ g.box }}">
 <sc-for list="{{ g.tiles }}" as="t" hint-placeholder-count="5">
 <button type="button" class="pj-t" onClick="{{ t.open }}" aria-label="{{ t.aria }}" style="{{ t.style }}">
-<video data-pg="{{ t.pg }}" src="{{ t.src }}" preload="metadata"></video>
+<video data-pg="{{ t.pg }}" data-start="{{ t.start }}" src="{{ t.src }}" preload="metadata"></video>
 <div class="pj-i"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div style="font-weight:700;font-size:clamp(16px,1.6vw,26px);letter-spacing:-.045em;line-height:1">{{ t.name }}</div><div class="vb-s pj-go">Ouvrir ↗</div></div></div>
 </button>
 </sc-for>
@@ -167,7 +167,7 @@ button{font-family:inherit}
 <sc-if value="{{ lb.on }}" hint-placeholder-val="{{ false }}">
 <div style="position:fixed;left:0;top:0;right:0;bottom:0;z-index:80;background:rgba(17,17,17,.94);display:flex;align-items:center;justify-content:center" onClick="{{ lb.close }}">
 <div style="{{ lb.frame }}" onClick="{{ lb.stop }}">
-<video id="lb-video" src="{{ lb.src }}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain;background:#000"></video>
+<video id="lb-video" data-start="{{ lb.start }}" src="{{ lb.src }}" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain;background:#000"></video>
 </div>
 <button type="button" onClick="{{ lb.close }}" aria-label="Fermer" style="position:absolute;top:24px;right:24px;padding:12px 18px;background:transparent;border:1px solid #FFF7E5;color:#FFF7E5;font:inherit;font-size:13px;font-weight:500;cursor:pointer">Fermer ✕</button>
 <button type="button" onClick="{{ lb.prev }}" aria-label="Précédent" style="position:absolute;left:24px;top:50%;margin-top:-24px;width:48px;height:48px;background:transparent;border:1px solid #FFF7E5;color:#FFF7E5;font:inherit;font-size:18px;cursor:pointer">←</button>
@@ -186,30 +186,10 @@ class Component extends DCLogic {
     super(props);
     const B = (id) => 'assets/' + id + '.mp4';
     // classement par contenu réel de chaque vidéo : 4 catégories, ordre alterné horizontal / vertical
-    const V = (id) => ({ src: B(id), v: true });
-    const H = (id) => ({ src: B(id), v: false });
+    // start : secondes à sauter au début de la vidéo (lecture et boucle)
+    const V = (id, start) => ({ src: B(id), v: true, start: start || 0 });
+    const H = (id, start) => ({ src: B(id), v: false, start: start || 0 });
     const cats = [
-      {
-        key: 'story', title: 'Storytelling', type: 'rise',
-        items: [
-          H('4fb1e1c89a8d6ec829f1c3623a6c0c93'), H('b80083bd8b3c1bedafe4f905628748c9'), H('e56ec5748c95fc8d3eee52194fdae3e0'),
-          H('4d51ecd9dbe2fa4a58fbcfe89f6d466b'), H('3881b545fae019757ece5b10603a2f27'),
-        ],
-      },
-      {
-        key: 'sport', title: 'Nutrition & sport', type: 'side',
-        items: [
-          H('2cb18033e68df41f4fff5b2b85cba892'), H('844edad1aea1ea7b0f1a7ceff208fc7c'), H('faccaf4654f6057dca5d40979a34937d'),
-          H('d791ac41e13a913c9df4f2e87ce642ee'), H('c70f411b84931a608de2bbf84977e309'),
-        ],
-      },
-      {
-        key: 'street', title: 'Streetwear & mode', type: 'zoom',
-        items: [
-          V('233dfc1329a20310692a434049fb4057'), V('befe0ba38a1c597e451f9633cdfc4664'), V('50fc4a3bff267ec59bfab1a12ff9fa01'),
-          V('0833f05a99d35c381cb010935bd97d66'), V('5f9fb2997da7368aed637ba3ad9bcf7c'), V('c660d9ef68130c499c429019f2a54631'),
-        ],
-      },
       {
         key: 'ads', title: 'ADS', type: 'wipe',
         items: [
@@ -218,10 +198,31 @@ class Component extends DCLogic {
         ],
       },
       {
+        key: 'story', title: 'Storytelling', type: 'rise',
+        items: [
+          H('b80083bd8b3c1bedafe4f905628748c9'), H('e56ec5748c95fc8d3eee52194fdae3e0'),
+          H('4d51ecd9dbe2fa4a58fbcfe89f6d466b'), H('3881b545fae019757ece5b10603a2f27'),
+        ],
+      },
+      {
         key: 'immo', title: 'Immobilier', type: 'rise',
         items: [
           H('f7ae048d0a3373b94924184f9c6e38a3'), V('9f0863118a2cfc44281245a01660aaee'), V('606150a22b49a4bbe76e4dbdc3de8897'),
           V('7abfb0d2998cd949c3a34610a3513f30'), V('b733f3f7546eda04a36e6968f0f8bdf9'),
+        ],
+      },
+      {
+        key: 'sport', title: 'Nutrition & sport', type: 'side',
+        items: [
+          H('2cb18033e68df41f4fff5b2b85cba892'), H('844edad1aea1ea7b0f1a7ceff208fc7c'), H('faccaf4654f6057dca5d40979a34937d'),
+          H('d791ac41e13a913c9df4f2e87ce642ee'), H('c70f411b84931a608de2bbf84977e309', 2),
+        ],
+      },
+      {
+        key: 'street', title: 'Streetwear & mode', type: 'zoom',
+        items: [
+          V('233dfc1329a20310692a434049fb4057'), V('befe0ba38a1c597e451f9633cdfc4664'), V('50fc4a3bff267ec59bfab1a12ff9fa01'),
+          V('0833f05a99d35c381cb010935bd97d66'), V('5f9fb2997da7368aed637ba3ad9bcf7c'), V('c660d9ef68130c499c429019f2a54631'),
         ],
       },
     ];
@@ -233,7 +234,7 @@ class Component extends DCLogic {
         this.pages.push({
           key: c.key + k, title: c.title, fmt: it.v ? 'Vertical' : 'Horizontal', type: c.type, ci, k, n: c.items.length,
           uw: it.v ? 9 : 16, uh: it.v ? 16 : 9,
-          tiles: [{ src: it.src, x: 0, y: 0, w: it.v ? 9 : 16, h: it.v ? 16 : 9 }],
+          tiles: [{ src: it.src, start: it.start, x: 0, y: 0, w: it.v ? 9 : 16, h: it.v ? 16 : 9 }],
         });
       });
     });
@@ -336,8 +337,8 @@ class Component extends DCLogic {
       document.querySelectorAll('video[data-pg]').forEach((v) => {
         const pi = Number(v.getAttribute('data-pg'));
         v.muted = true;
-        v.loop = true;
         v.setAttribute('playsinline', '');
+        this.bindStart(v);
         const a = Math.max(0, Math.min(1, (P - (pi - 1) - 0.4) / 0.6));
         const x = Math.max(0, Math.min(1, (P - pi) / 0.6));
         const on = a > 0.001 && x < 0.62 && !lbOpen;
@@ -349,12 +350,25 @@ class Component extends DCLogic {
       });
     } catch (err) {}
   }
+  // vidéo avec un début à sauter : on boucle nous-mêmes pour revenir au bon instant
+  bindStart(v) {
+    const st = Number(v.getAttribute('data-start') || 0);
+    v.loop = !(st > 0);
+    if (st > 0) {
+      if (!v._st) {
+        v._st = 1;
+        v.addEventListener('loadedmetadata', () => { const s0 = Number(v.getAttribute('data-start') || 0); if (s0 > 0 && v.currentTime < s0 - 0.05) v.currentTime = s0; });
+        v.addEventListener('ended', () => { v.currentTime = Number(v.getAttribute('data-start') || 0); const p = v.play(); if (p && p.catch) p.catch(() => {}); });
+      }
+      if (v.currentTime < st - 0.05) v.currentTime = st;
+    }
+  }
   syncLightbox() {
     try {
       const v = document.getElementById('lb-video');
       if (!v) return;
       v.muted = true;
-      v.loop = true;
+      this.bindStart(v);
       v.playsInline = true;
       v.setAttribute('playsinline', '');
       if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
@@ -422,7 +436,8 @@ class Component extends DCLogic {
         return {
           pg: pi,
           // seules la vidéo affichée et ses voisines sont chargées : trop de lecteurs vidéo ouverts en même temps donnent des images noires
-          src: Math.abs(P - pi) <= 1.2 ? t.src + '#t=0.4' : '',
+          src: Math.abs(P - pi) <= 1.2 ? t.src + '#t=' + (t.start ? t.start + 0.1 : 0.4) : '',
+          start: t.start || 0,
           cat: t.cat,
           name: t.name,
           aria: t.name,
@@ -464,7 +479,8 @@ class Component extends DCLogic {
       const go = (d) => this.setState({ open: (open + d + M) % M });
       lb = {
         on: true,
-        src: it.src,
+        src: it.src + (it.start ? '#t=' + it.start : ''),
+        start: it.start || 0,
         label: it.name + ' · ' + String(open + 1).padStart(2, '0') + ' / ' + String(M).padStart(2, '0'),
         frame: 'position:relative;background:#000;' + (it.v ? 'height:88vh;aspect-ratio:9/16;max-width:92vw' : 'width:min(88vw,156vh);aspect-ratio:16/9'),
         close: () => this.setState({ open: null }),

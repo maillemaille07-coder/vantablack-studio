@@ -62,6 +62,9 @@ button{font-family:inherit}
 .vb-one .vb-play{opacity:0;transform:scale(.7);transition:opacity .25s,transform .25s}.vb-one:hover .vb-play{opacity:1;transform:scale(1)}
 .vb-nav{display:flex;justify-content:space-between;align-items:center;width:100%;padding:16px 12px;background:transparent;border:0;border-top:1px solid #111;color:#111;font:inherit;font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:background .2s,color .2s}
 .vb-nav:hover{background:#D52122;color:#FFF7E5}
+.vb-arr{width:52px;height:52px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;padding:0;color:#111;font:inherit;font-size:34px;line-height:1;cursor:pointer;transition:color .2s,transform .2s}
+.vb-arr:hover{color:#D52122}
+.vb-arr:active{transform:scale(.9)}
 @media (prefers-reduced-motion:reduce){.vb-one{animation:none!important}}
 .vb-inv{background:#111;color:#FFF7E5;padding:0 .1em}
 @keyframes vb-in{from{clip-path:inset(100% 0 0 0);transform:translateY(24px)}to{clip-path:inset(0 0 0 0);transform:none}}
@@ -157,6 +160,8 @@ button{font-family:inherit}
 <video id="morph-h" src="assets/4d51ecd9dbe2fa4a58fbcfe89f6d466b.mp4" style="{{ rl.hStyle }}"></video>
 </button>
 
+<div style="{{ rl.msgWrap }}"><p style="margin:0;max-width:16ch;text-align:center;font-weight:700;font-size:clamp(38px,8.2vw,150px);letter-spacing:-.055em;line-height:.95;color:#FFF7E5">Je vous accompagne dans toutes vos créations de contenu<span style="color:#D52122">.</span></p></div>
+
 <div style="{{ rl.navWrap }}">
 <button type="button" class="vb-nav" onClick="{{ rl.prev }}" style="{{ rl.nav1 }}"><span>Précédent</span><span>←</span></button>
 <button type="button" class="vb-nav" onClick="{{ rl.next }}" style="{{ rl.nav2 }}"><span>Suivant</span><span>→</span></button>
@@ -168,7 +173,7 @@ button{font-family:inherit}
 <div style="{{ fl.adsT }}">
 <!-- 2 · ADS (rouge, pleine page) -->
 <section style="height:100%;box-sizing:border-box;padding:28px clamp(16px,2.4vw,40px);color:#FFF7E5;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[001]</span><span>Vantablack Studio</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between"><span></span><span>Vantablack Studio</span></div>
 <h2 style="font-size:min(44vw,105vh);line-height:.74;letter-spacing:-.07em;margin:0 0 0 -.05em;white-space:nowrap">ADS</h2>
 <div class="vb-s" style="display:flex;justify-content:space-between"><span>Publicités</span><span>↓</span></div>
 </section></div>
@@ -179,7 +184,7 @@ button{font-family:inherit}
 <div style="{{ fl.rsT }}">
 <!-- 3 · RÉSEAUX SOCIAUX (blanc, pleine page) -->
 <section id="rs-sec" style="height:100%;box-sizing:border-box;padding:28px clamp(16px,2.4vw,40px);color:#111;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[002]</span><span>Contenu</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between"><span></span><span>Contenu</span></div>
 <div>
 <div style="display:flex;flex-direction:column;align-items:flex-start;gap:.06em;font-weight:700;letter-spacing:-.06em;font-size:min(21.5vw,60vh);line-height:1">
 <span class="vb-hl bl vb-blink {{ rsCls }}" style="font-size:.28em;letter-spacing:-.05em;background:transparent;color:#111!important"><i class="d1"></i>réseaux</span>
@@ -195,7 +200,7 @@ button{font-family:inherit}
 <div style="{{ fl.ytT }}">
 <!-- 3b · YOUTUBE (noir, pleine page) -->
 <section style="height:100%;box-sizing:border-box;padding:28px clamp(16px,2.4vw,40px);color:#FFF7E5;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(32px,5vw,72px);overflow:hidden">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[003]</span><span>↓</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between"><span></span><span>↓</span></div>
 <h2 style="font-size:min(20.5vw,55vh);line-height:.8;letter-spacing:-.065em;white-space:nowrap;margin:0 0 0 -.04em">YouTube</h2>
 </section></div>
 </div>
@@ -205,7 +210,7 @@ button{font-family:inherit}
 <div style="{{ fl.domT }}">
 <!-- 4 · DOMAINES (rouge, pleine page, phrase sélectionnée) -->
 <section style="height:100%;box-sizing:border-box;padding:28px clamp(16px,2.4vw,40px) clamp(24px,4vw,56px);color:#FFF7E5;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(40px,6vw,96px)">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[004]</span><span>(12)</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between"><span></span><span></span></div>
 <div>
 <div class="vb-s" style="margin-bottom:clamp(20px,3vw,40px)">Dans tous les domaines —</div>
 <p onMouseEnter="{{ domOver }}" onMouseLeave="{{ domOut }}" style="font-weight:700;font-size:clamp(34px,7vw,124px);letter-spacing:-.055em;line-height:1.08">
@@ -226,8 +231,8 @@ button{font-family:inherit}
 <section id="chiffres" style="padding:clamp(160px,28vh,340px) clamp(16px,2.4vw,40px) 0">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(64px,10vw,160px) clamp(32px,5vw,96px)">
 <div style="grid-column:1/-1;border-top:1px solid #111;padding-top:16px">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[005]</span><span>Vues cumulées*</span></div>
-<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(32px,6vw,96px);white-space:nowrap"><span style="{{ n.totalS }}">{{ n.total }}</span></div>
+<div style="font-weight:700;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.045em;line-height:1.05">Vues cumulées*</div>
+<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(20px,3.5vw,56px);white-space:nowrap"><span style="{{ n.totalS }}">{{ n.total }}</span></div>
 <div class="vb-s" style="display:flex;flex-direction:column;gap:8px;margin-top:clamp(32px,5vw,72px)">
 <div style="display:flex;gap:8px"><span style="width:76px">Instagram</span><span>[<span style="{{ n.igS }}">{{ n.ig }}</span>]</span></div>
 <div style="display:flex;gap:8px"><span style="width:76px">TikTok</span><span>[<span style="{{ n.ttS }}">{{ n.tt }}</span>]</span></div>
@@ -236,31 +241,35 @@ button{font-family:inherit}
 <p class="vb-s" style="margin-top:clamp(24px,3vw,40px);max-width:560px;color:rgba(17,17,17,.7)">* Vues visibles sur les réseaux, hors ads, reels d'essai et vidéos en privé.</p>
 </div>
 <div style="border-top:1px solid #111;padding-top:16px;margin-top:clamp(0px,8vw,140px)">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[006]</span><span>Clients accompagnés</span></div>
-<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(32px,6vw,96px)"><span style="{{ n.clientsS }}">{{ n.clients }}</span></div>
+<div style="font-weight:700;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.045em;line-height:1.05">Clients accompagnés</div>
+<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(20px,3.5vw,56px)"><span style="{{ n.clientsS }}">{{ n.clients }}</span></div>
 </div>
 <div style="border-top:1px solid #111;padding-top:16px;">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[007]</span><span>Projets livrés</span></div>
-<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(32px,6vw,96px)"><span style="{{ n.projetsS }}">{{ n.projets }}</span></div>
+<div style="font-weight:700;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.045em;line-height:1.05">Projets livrés</div>
+<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(20px,3.5vw,56px)"><span style="{{ n.projetsS }}">{{ n.projets }}</span></div>
 </div>
 <div style="border-top:1px solid #111;padding-top:16px;margin-top:clamp(0px,8vw,140px)">
-<div class="vb-s" style="display:flex;justify-content:space-between"><span>[008]</span><span>Clients qui reviennent</span></div>
-<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(32px,6vw,96px)"><span style="{{ n.retourS }}">{{ n.retour }}</span></div>
+<div style="font-weight:700;font-size:clamp(22px,2.8vw,44px);letter-spacing:-.045em;line-height:1.05">Clients qui reviennent</div>
+<div style="font-weight:700;font-size:min(15vw,250px);letter-spacing:-.06em;line-height:.85;margin-top:clamp(20px,3.5vw,56px)"><span style="{{ n.retourS }}">{{ n.retour }}</span></div>
 </div>
 </div>
 </section>
 
 <!-- CLIENTS : cartes arrondies, la carte cliquée vient au centre et la rangée défile -->
 <section id="clients" style="padding:clamp(120px,20vh,260px) 0 0">
-<div class="vb-s" style="display:flex;justify-content:space-between;padding:0 clamp(16px,2.4vw,40px) clamp(32px,5vw,72px)"><span>[009]</span><span>Clients {{ dl.count }}</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between;padding:0 clamp(16px,2.4vw,40px) clamp(32px,5vw,72px)"><span></span><span>Clients</span></div>
 
-<div style="position:relative;height:clamp(500px,48vw,780px);overflow:hidden">
-<sc-for list="{{ dl.cards }}" as="g" hint-placeholder-count="5"><button type="button" onClick="{{ g.pick }}" aria-label="{{ g.aria }}" style="{{ g.style }}"><span class="vb-s" style="display:block;color:inherit;text-align:left">{{ g.top }}</span><span style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;padding:8% 0"><img src="{{ g.logo }}" alt="{{ g.alt }}" style="{{ g.logoStyle }}"></span><span class="vb-s" style="display:block;color:inherit;text-align:left;opacity:.7">{{ g.bottom }}</span></button></sc-for>
+<div id="dl-row" style="position:relative;height:clamp(500px,48vw,780px);overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none">
+<sc-for list="{{ dl.cards }}" as="g" hint-placeholder-count="5"><button type="button" onClick="{{ g.pick }}" aria-label="{{ g.aria }}" style="{{ g.style }}"><span class="vb-s" style="display:block;color:inherit;text-align:left;min-height:1em">{{ g.top }}</span><span style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;padding:8% 0"><img src="{{ g.logo }}" alt="{{ g.alt }}" style="{{ g.logoStyle }}"></span><span class="vb-s" style="display:block;color:inherit;text-align:left;opacity:.7">{{ g.bottom }}</span></button></sc-for>
+</div>
+<div style="display:flex;justify-content:center;align-items:center;gap:clamp(28px,4vw,56px);padding:clamp(20px,2.4vw,36px) clamp(16px,2.4vw,40px) 0">
+<button type="button" class="vb-arr" onClick="{{ dl.prev }}" aria-label="Client précédent">←</button>
+<button type="button" class="vb-arr" onClick="{{ dl.next }}" aria-label="Client suivant">→</button>
 </div>
 
 <!-- COMPTES ACCOMPAGNÉS : petites cartes de profil, centrées -->
 <div class="vb-cap" style="padding:clamp(56px,8vw,120px) clamp(16px,2.4vw,40px) 0">
-<div class="vb-s" style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #111"><span>[010]</span><span>Comptes accompagnés {{ dl.acctCount }}</span></div>
+<div class="vb-s" style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid #111"><span></span><span>Comptes accompagnés</span></div>
 <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(12px,1.6vw,24px);margin-top:clamp(20px,2.4vw,36px)">
 <sc-for list="{{ dl.accts }}" as="a" hint-placeholder-count="3">
 <a class="vb-pc" href="{{ a.url }}" target="_blank" rel="noopener" onMouseEnter="{{ a.enter }}" onMouseLeave="{{ a.leave }}">
@@ -281,7 +290,7 @@ button{font-family:inherit}
 <!-- 6 · CONTACT — très aéré, coupé en bas -->
 <section id="contact" style="padding:clamp(120px,20vh,260px) clamp(16px,2.4vw,40px) 0">
 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-bottom:24px">
-<span class="vb-s">[011]</span>
+<span></span>
 <span class="vb-s" style="max-width:260px;text-align:right">Un projet en tête ?<br>Écris-moi, je réponds vite.</span>
 </div>
 <a href="contact.html" style="display:block;font-weight:700;font-size:min(12.4vw,225px);letter-spacing:-.06em;line-height:.8;white-space:nowrap;margin-left:-.04em">Parlons-en<span style="color:#D52122">.</span></a>
@@ -304,12 +313,8 @@ button{font-family:inherit}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    // ordre aléatoire des reels, tiré à chaque visite
-    this.reelPerm = Array.from({ length: 14 }, (_, k) => k);
-    for (let i = this.reelPerm.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [this.reelPerm[i], this.reelPerm[j]] = [this.reelPerm[j], this.reelPerm[i]];
-    }
+    // ordre fixe des 7 reels de l'accueil : 04, 06, 08, 29, 28, 26, 17 (numéros de la planche ; positions dans reelsBase)
+    this.reelPerm = [11, 5, 14, 1, 9, 6, 4];
     this.state = { cp: 0, fs: 0, mp: 0, rp: 0, ck: 0, reel: 0, hl: false, rs: false, rev: 0, dom: 0, p: { total: 0, ig: 1, tt: 1, yt: 1, clients: 0, projets: 0, retour: 0 } };
     this.timer = null;
   }
@@ -333,6 +338,7 @@ class Component extends DCLogic {
     this.target = 0;
     this.initHeader();
     setTimeout(() => this.syncVideo(), 400);
+    setTimeout(() => this.initCarousel(), 300);
     this.timer = setInterval(() => { if (!this.hovering) this.setState({ dom: (this.state.dom + 1) % 12 }); }, 1700);
     if (this.reduceMotion) {
       this.counted = true;
@@ -378,7 +384,7 @@ class Component extends DCLogic {
           const r = fEl.getBoundingClientRect();
           fs = Math.max(0, Math.min(600, (-r.top / vh) * 100));
           fs = Math.round(fs * 4) / 4;
-          mp = Math.max(0, Math.min(1, fs / 240));
+          mp = Math.max(0, Math.min(1, fs / 190));
           mp = Math.round(mp * 200) / 200;
           rsOn = fs >= 375 && fs < 447;
           if (r.top <= 36 && r.bottom >= 36) {
@@ -410,6 +416,38 @@ class Component extends DCLogic {
     this.target += d;
     if (this.reduceMotion) { this.setState({ cp: this.target }); return; }
     this.startSpring();
+  }
+  stepCard(d) {
+    this.target += d;
+    if (this.reduceMotion) { this.setState({ cp: this.target }); return; }
+    this.startSpring();
+  }
+  initCarousel() {
+    const row = document.getElementById('dl-row');
+    if (!row || this.carouselOn) return;
+    this.carouselOn = true;
+    // défilement horizontal (trackpad, molette + Maj) : une carte par geste
+    let acc = 0, lock = 0;
+    row.addEventListener('wheel', (e) => {
+      const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+      if (!dx) return;
+      e.preventDefault();
+      const now = performance.now();
+      if (now < lock) return;
+      acc += dx;
+      if (Math.abs(acc) > 40) { this.stepCard(acc > 0 ? 1 : -1); acc = 0; lock = now + 380; }
+    }, { passive: false });
+    // glisser au doigt ou à la souris
+    let x0 = null, drag = false;
+    row.addEventListener('pointerdown', (e) => { x0 = e.clientX; drag = false; });
+    row.addEventListener('pointerup', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 45) { drag = true; this.stepCard(dx < 0 ? 1 : -1); }
+    });
+    row.addEventListener('pointercancel', () => { x0 = null; });
+    row.addEventListener('click', (e) => { if (drag) { e.stopPropagation(); e.preventDefault(); drag = false; } }, true);
   }
   startSpring() {
     if (this.sRaf) return;
@@ -511,6 +549,7 @@ class Component extends DCLogic {
       'assets/f2b8ce9acb8b6951f732264b680522d7.mp4', // reel 03
       'assets/c660d9ef68130c499c429019f2a54631.mp4', // reel 10
       'assets/befe0ba38a1c597e451f9633cdfc4664.mp4', // reel 06
+      'assets/eab5040028fd14ea5cbfd612f37d39b8.mp4', // REELS 9.1
     ];
     const reels = this.reelPerm.map((k) => reelsBase[k]);
     const ri = this.state.reel;
@@ -545,6 +584,9 @@ class Component extends DCLogic {
     // l'arrière-plan passe du crème au noir pendant le zoom
     const kb = sm((mpv - 0.15) / 0.3);
     const bgc = [255, 247, 229].map((c, i) => Math.round(lerp(c, 17, kb)));
+    const msgIn = sm((this.state.fs - 192) / 22);
+    const msgOut = sm((this.state.fs - 238) / 14);
+    const msgK = this.reduceMotion ? (this.state.fs >= 192 && this.state.fs < 240 ? 1 : 0) : msgIn * (1 - msgOut);
     const rl = {
       stage: 'background:rgb(' + bgc.join(',') + ')',
       num: pad2(ri + 1),
@@ -557,6 +599,7 @@ class Component extends DCLogic {
       nav1: mv((1 - q1) * 28, 0, (1 - q1) * 6, q1) + ';transition:background .2s,color .2s',
       nav2: 'border-bottom:1px solid #111;' + mv((1 - q2) * 28, 0, (1 - q2) * 6, q2) + ';transition:background .2s,color .2s',
       tileStyle: 'position:absolute;padding:0;border:0;overflow:hidden;color:#FFF7E5;cursor:' + (moving ? 'default' : 'pointer') + ';background:#111;aspect-ratio:auto;width:' + tw.toFixed(1) + 'px;height:' + th.toFixed(1) + 'px;left:calc(50% - ' + (tw / 2).toFixed(1) + 'px);top:calc(50% - ' + (th / 2).toFixed(1) + 'px);' + mv(0, (1 - e) * 90, (1 - e) * 16, e) + (rawP >= 1 && !moving && this.state.ck > 0 ? ';animation:' + (this.state.ck % 2 ? 'vb-ra' : 'vb-rb') + ' .65s cubic-bezier(.7,0,.2,1) both' : ''),
+      msgWrap: 'position:absolute;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:0 clamp(16px,4vw,64px);box-sizing:border-box;pointer-events:none;background:rgba(0,0,0,' + (0.38 * msgK).toFixed(3) + ');opacity:' + msgK.toFixed(3) + ';visibility:' + (msgK > 0.01 ? 'visible' : 'hidden') + ';filter:blur(' + ((1 - msgK) * 10).toFixed(2) + 'px);transform:translateY(' + ((1 - msgIn) * 30 - msgOut * 30).toFixed(1) + 'px)',
       vStyle: vid(1 - cf),
       hStyle: vid(cf),
       next: () => { if (this.state.mp > 0.2) return; go(1); this.setState({ ck: this.state.ck + 1 }); },
@@ -604,7 +647,7 @@ class Component extends DCLogic {
       const on = ad < 0.5;
       const ty = Math.min(ad, 2.5) * 14; // léger arc : les cartes éloignées descendent
       return {
-        top: String(i + 1).padStart(2, '0') + ' / ' + String(NL).padStart(2, '0'),
+        top: '',
         logo: cl.logo,
         alt: cl.name,
         logoStyle: 'display:block;max-width:68%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:' + (on ? 'brightness(0) invert(1)' : 'brightness(0)') + ';transition:filter .35s',
@@ -646,6 +689,8 @@ class Component extends DCLogic {
       count: '(' + String(NL).padStart(2, '0') + ')',
       accts,
       acctCount: '(' + String(acctData.length).padStart(2, '0') + ')',
+      prev: () => this.stepCard(-1),
+      next: () => this.stepCard(1),
     };
     return {
       dl,
