@@ -264,6 +264,16 @@ body header.top,body h1,body .sub,body .pips24,body .logo,body .status,body .zon
 .stage.locked canvas{filter:grayscale(1) brightness(.92)}
 .lockbadge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;background:#0b0b0c;color:#fff;padding:18px 24px;display:flex;flex-direction:column;align-items:center;gap:10px;border:2px solid #fff;box-shadow:6px 6px 0 #0b0b0c;pointer-events:none;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
 .lockbadge .li svg{display:block;width:34px;height:auto}
+.stage.locked.attente{cursor:pointer}
+.lockbadge.no{animation:nope .7s cubic-bezier(.36,.07,.19,.97)}
+@keyframes nope{0%,100%{transform:translate(-50%,-50%)}15%,55%{transform:translate(calc(-50% - 16px),-50%) rotate(-9deg)}35%,75%{transform:translate(calc(-50% + 16px),-50%) rotate(9deg)}90%{transform:translate(calc(-50% - 5px),-50%) rotate(-3deg)}}
+.patience{position:absolute;left:50%;top:calc(50% + 74px);z-index:4;width:min(320px,86vw);transform:translateX(-50%);background:#fff;color:#0b0b0c;border:2px solid #0b0b0c;box-shadow:6px 6px 0 #0b0b0c;padding:14px 16px;text-align:center;font-size:13px;font-weight:800;line-height:1.5;pointer-events:none;animation:bulle .4s cubic-bezier(.3,1.6,.5,1) backwards}
+.patience[hidden]{display:none}
+@keyframes bulle{from{opacity:0;translate:0 14px;scale:.9}to{opacity:1;translate:0 0;scale:1}}
+.accueil{position:fixed;inset:0;z-index:70;border:0;padding:24px;background:rgba(255,255,255,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;font-family:inherit;cursor:pointer;color:#0b0b0c}
+.accueil span{font-size:clamp(44px,11vw,96px);font-weight:900;letter-spacing:-.05em;line-height:.95;color:#e0201a;text-align:center;max-width:9em;animation:bulleC .7s cubic-bezier(.3,1.6,.5,1) backwards}
+.accueil small{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+@keyframes bulleC{from{opacity:0;scale:.6}to{opacity:1;scale:1}}
 .lockbadge.out{animation:unlock .65s cubic-bezier(.4,1.6,.5,1) forwards}
 @keyframes unlock{0%{transform:translate(-50%,-50%) scale(1)}30%{transform:translate(-50%,-50%) scale(1.15) rotate(-7deg)}100%{transform:translate(-50%,-90%) scale(.2) rotate(12deg);opacity:0}}
 .art img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%;filter:grayscale(1) contrast(1.12);z-index:0}
@@ -308,7 +318,7 @@ body .shopz{opacity:calc(1 - var(--p,0)*.85);transition:opacity .12s}
 <p class="sub">24 cartes · 1 par jour</p>
 
 <div class="stage" id="stage">
-  <div class="lockbadge" id="lockbadge" hidden><span class="li"></span><span>Verrouillé</span></div><div class="tap" id="tap">Touche pour ouvrir</div></div>
+  <div class="lockbadge" id="lockbadge" hidden><span class="li"></span><span>Verrouillé</span></div><div class="tap" id="tap">Touche pour ouvrir</div><div class="patience" id="patience" role="status" hidden>Toi, tu es du genre à manger le chocolat du 24 dès le 3 décembre…<br>Patience&nbsp;! Ton booster s'ouvre le 1er décembre.</div></div>
 
 <div class="gate" id="gate" hidden>
   <div class="tab"><span class="bars" style="--p:.2"></span><span>Ton booster</span></div>
@@ -463,7 +473,7 @@ const TIERS=[
  {name:"Rare",      art1:"#1aa3ff",art2:"#0a5cff",card:"#8fd0ff",glow:"rgba(26,163,255,.6)",  pips:2, desc:"-20 % ou -50 % sur les LUTs et le bundle."},
  {name:"Épique",    art1:"#a652ff",art2:"#6a1fd8",card:"#d3b0ff",glow:"rgba(166,82,255,.65)", pips:3, desc:"Le Super Pack de LUTs de Noël pour tous, ou un LUT Gold'n Green (très rare)."},
  {name:"Légendaire",art1:"#ffc400",art2:"#ff8a00",card:"#ffd75e",glow:"rgba(255,176,0,.7)",   pips:4, desc:"Le bundle des 3 LUTs Gold'n Green."},
- {name:"Mythique",  art1:"#ff3b30",art2:"#c40d0d",card:"#ff8a80",glow:"rgba(255,59,48,.75)",  pips:5,desc:"Un montage vidéo de Reel, pour la 3e personne."}
+ {name:"Mythique",  art1:"#ff3b30",art2:"#c40d0d",card:"#ff8a80",glow:"rgba(255,59,48,.75)",  pips:5,desc:"Un montage vidéo de Reel, pour un seul gagnant."}
 ];
 function tierOf(p){
   if(typeof p.tier==="number") return p.tier;
@@ -794,9 +804,29 @@ function renderStatus(){
    BOOSTER 3D (Three.js)
    ========================================================= */
 const stage=$("stage");
-let opening=false, startOpen=null;
+let opening=false, startOpen=null, WAITING=false;
+// Avant le 1er décembre : le joueur est inscrit, mais le paquet reste fermé et le cadenas dit non.
+function refuse(){
+  const b=$("lockbadge"), p=$("patience");
+  b.classList.remove("no"); p.hidden=true; void b.offsetWidth;   // relance les deux animations
+  b.classList.add("no"); p.hidden=false;
+  navigator.vibrate&&navigator.vibrate([30,60,30]);
+}
+function attendre(){
+  WAITING=true; LOCKED=true;                       // LOCKED bloque aussi le glissement du booster
+  state.opened=false; save();                      // il s'ouvrira vraiment le 1er décembre
+  $("gate").hidden=true; $("deck").classList.remove("show");
+  stage.style.display=""; stage.classList.add("locked","attente");
+  $("lockbadge").hidden=false; $("lockbadge").classList.remove("out"); $("lockbadge").querySelector(".li").innerHTML=pix("lock",true);
+  $("tap").hidden=false; $("tap").textContent="Touche pour ouvrir";
+  if(!THREE_INIT){ try{ loadLogo(initThree); }catch(err){ console.error(err); } }
+  $("msg").textContent="Les cartes se débloquent une par jour à partir du 1er décembre.";
+  renderStatus(); renderTop();
+  setTimeout(refuse,700);
+}
 
 function openBooster(){
+  if(WAITING){ refuse(); return; }
   if(LOCKED){ try{ $("gemail").focus(); }catch(_){} return; }
   if(opening) return; opening=true;
   stage.classList.add("busy"); $("msg").textContent="";
@@ -1007,11 +1037,23 @@ async function detectMode(){
   try{ const r=await apiFetch("/ping",{cache:"no-store"}); if(r.ok){ const j=await r.json(); if(j.ok){ GOOGLE=j.google||null; return "api"; } } }catch(e){}
   return SHEET_URL?"off":"local";   // en ligne, jamais de tirage de démonstration si la feuille ne répond pas
 }
+// Message d'arrivée envoyé par le serveur à certains joueurs : une carte au centre, un toucher la ferme.
+let ACCUEILLI=false;
+function accueil(texte){
+  if(ACCUEILLI) return; ACCUEILLI=true;
+  setTimeout(()=>{
+    const v=document.createElement("button"); v.type="button"; v.className="accueil"; v.setAttribute("aria-label","Fermer le message");
+    const b=document.createElement("span"); b.textContent=texte; v.appendChild(b);
+    const s=document.createElement("small"); s.textContent="Touche pour continuer"; v.appendChild(s);
+    v.onclick=()=>v.remove(); document.body.appendChild(v); v.focus();
+  },1100);
+}
 async function syncMe(){
   try{
     const r=await apiFetch("/me?email="+encodeURIComponent(EMAIL),{cache:"no-store",headers:authHead()});
     if(r.status===401) return forget();
     const j=await r.json();
+    if(j.ok&&j.welcome) accueil(j.welcome);
     if(j.ok){ const keep=state.opened; state={days:{},opened:keep}; Object.entries(j.days||{}).forEach(([d,v])=>state.days[d]=v); save(); }
   }catch(e){}
 }
@@ -1096,6 +1138,7 @@ async function startApp(skipLoad){
     state.days[6]={prize:{t:"win",tier:2,title:"LUT Osmo",desc:"Gold'n Green Osmo offert.",code:"DEMO-1234",img:"lut-osmo.jpg"}};
   }
   showName();
+  if(DAY<1){ attendre(); $("foot").innerHTML=`${NAME||EMAIL} · <a href="#" id="chg">changer</a>`; $("chg").onclick=e=>{e.preventDefault();try{localStorage.removeItem(EMAIL_KEY)}catch(_){ } location.reload()}; return; }
   const wasLocked=LOCKED;
   if(wasLocked&&!hasBooster()){ $("lockbadge").classList.add("out"); await new Promise(r=>setTimeout(r,750)); }
   if(wasLocked) $("lockbadge").hidden=true;
